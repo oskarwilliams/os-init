@@ -4,21 +4,28 @@
 xcode-select --install
 softwareupdate -i -r
 
-# Install Oh My Zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# Install Oh My Zsh if not installed
+if [ ! -d  $HOME/.oh-my-zsh ]
+then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
 
-# Install Powerlevel10K
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+# Install Powerlevel10K if not installed
+if [ ! -d  ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k ]
+then
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+fi
 
-# Install Brew
+# Install Brew if not installed
 if ! command -v brew &> /dev/null
 then
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 # Install Brew casks and formulas
 brew bundle --file=Brewfile
 
+# Copy over initial config
 cp .zshrc.initial ~/.zshrc
 cp .p10k.zsh.initial ~/.p10k.zsh
-cp -R .oh-my-zsh-custom ~/.oh-my-zsh/custom
+cp functions.zsh ~/.oh-my-zsh/custom/functions.zsh
