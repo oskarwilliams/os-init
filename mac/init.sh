@@ -29,3 +29,9 @@ brew bundle --file=Brewfile
 cp .zshrc.initial ~/.zshrc
 cp .p10k.zsh.initial ~/.p10k.zsh
 cp functions.zsh ~/.oh-my-zsh/custom/functions.zsh
+
+# Install nvm if not installed
+if ! command -v nvm &> /dev/null
+then
+    sh -c "$(curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.6/install.sh)"
+fi
