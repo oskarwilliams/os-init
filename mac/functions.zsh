@@ -2,14 +2,11 @@ slack_standup() {
     today=$(date -u +"%Y-%m-%d")
     yesterday=$(date -u -v -1d +"%Y-%m-%d")
 
-    output_today=$(gh search prs --author=@me --merged-at "$today" --owner="mytosbio" --json number,title,updatedAt,url --template '{{range .}}- [#{{.number}} - {{.title}}]({{.url}}) - {{timeago .updatedAt}}
-    {{end}}')
+    output_today=$(gh search prs --author=@me --merged-at "$today" --owner="mytosbio" --json number,title,updatedAt,url --template '{{range .}}- [#{{.number}} - {{.title}}]({{.url}}) - {{timeago .updatedAt}}\n{{end}}')
 
-    output_yesterday=$(gh search prs --author=@me --merged-at "$yesterday" --owner="mytosbio" --json number,title,updatedAt,url --template '{{range .}}- [#{{.number}} - {{.title}}]({{.url}}) - {{timeago .updatedAt}}
-    {{end}}')
+    output_yesterday=$(gh search prs --author=@me --merged-at "$yesterday" --owner="mytosbio" --json number,title,updatedAt,url --template '{{range .}}- [#{{.number}} - {{.title}}]({{.url}}) - {{timeago .updatedAt}}\n{{end}}')
 
-    open_prs=$(gh search prs --author=@me --state=open --owner="mytosbio" --json number,title,updatedAt,url --template '{{range .}}- [#{{.number}} - {{.title}}]({{.url}}) - {{timeago .updatedAt}}
-    {{end}}')
+    open_prs=$(gh search prs --author=@me --state=open --owner="mytosbio" --json number,title,updatedAt,url --template '{{range .}}- [#{{.number}} - {{.title}}]({{.url}}) - {{timeago .updatedAt}}\n{{end}}')
     
     response=$(curl \
         -X POST \
@@ -21,7 +18,7 @@ slack_standup() {
         https://api.linear.app/graphql)
     
     linear_active=$(echo "$response" | jq -r '.data.issues.nodes[] |
-    "  - [MYT-\(.number)](\(.url)) - \(.title) - State: \(.state.name)" +
+    "- [MYT-\(.number)](\(.url)) - \(.title) - State: \(.state.name)" +
     if .state.name == "In Progress" then " :large_orange_circle:" else "" end +
     if .state.name == "In Review" then " :large_green_circle:" else "" end')
     
