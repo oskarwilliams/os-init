@@ -1,10 +1,14 @@
 #!/bin/bash
 
 # Update apt
-sudo apt-get update
+sudo apt update
 
 # Install zsh if not installed
-sudo apt-get install zsh -y
+sudo apt install zsh -y
+
+# Install build essentials
+sudo apt install build-essential
+sudo apt install libssl-dev libffi-dev libncurses5-dev zlib1g zlib1g-dev libreadline-dev libbz2-dev libsqlite3-dev make gcc
 
 # Install Oh My Zsh if not installed
 if [ ! -d  $HOME/.oh-my-zsh ]
