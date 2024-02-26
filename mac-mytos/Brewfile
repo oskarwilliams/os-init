@@ -24,7 +24,6 @@ brew "poetry"
 brew "protobuf"
 brew "redis"
 
-tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 

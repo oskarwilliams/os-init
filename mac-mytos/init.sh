@@ -40,3 +40,6 @@ brew bundle --file=Brewfile
 cp .zshrc.initial ~/.zshrc
 cp .p10k.zsh.initial ~/.p10k.zsh
 cp functions.zsh ~/.oh-my-zsh/custom/functions.zsh
+
+# Upgrade all existing brew installs
+brew upgrade
